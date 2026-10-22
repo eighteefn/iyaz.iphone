@@ -4,218 +4,344 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Little iPhone</title>
+
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
-  background:#111;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
+* {
+  box-sizing: border-box;
 }
-.phone{
-  width:100%;
-  max-width:390px;
-  min-height:100vh;
-  background:linear-gradient(145deg,#e9b5c9,#a9a4d5,#7895b7);
-  padding:22px;
-  position:relative;
-  overflow:hidden;
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f6e9e5;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #514542;
 }
-.status{
-  display:flex;
-  justify-content:space-between;
-  font-size:14px;
-  font-weight:600;
+
+.phone {
+  width: 320px;
+  height: 650px;
+  max-height: 92vh;
+  border: 8px solid #fff;
+  border-radius: 42px;
+  overflow: hidden;
+  position: relative;
+  background: #f7e8e2;
+  box-shadow: 0 15px 45px #b99b9455;
 }
-#lock{
-  text-align:center;
-  padding-top:90px;
+
+.status {
+  position: absolute;
+  top: 12px;
+  left: 22px;
+  right: 22px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  z-index: 5;
 }
-.date{font-size:17px}
-.clock{
-  font-size:76px;
-  font-weight:300;
-  letter-spacing:-4px;
+
+.screen {
+  width: 100%;
+  height: 100%;
+  padding: 48px 18px 20px;
+  overflow-y: auto;
 }
-.message{
-  margin-top:20px;
-  padding:14px;
-  border-radius:18px;
-  background:#ffffff55;
-  color:#222;
-  text-align:left;
+
+#lock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(160deg, #f8e8e1, #e9c8c3, #f5e7df);
 }
-button{
-  border:0;
-  cursor:pointer;
-  font:inherit;
+
+.date {
+  font-size: 14px;
+  margin-bottom: 8px;
 }
-.open{
-  margin-top:35px;
-  padding:13px 28px;
-  border-radius:25px;
-  background:#ffffffbb;
-  color:#222;
+
+.clock {
+  font-size: 68px;
+  font-weight: 300;
+  letter-spacing: -4px;
 }
-#home{display:none}
-.greeting{
-  margin-top:30px;
-  font-size:25px;
-  font-weight:650;
+
+.greeting {
+  margin-top: 12px;
+  font-size: 14px;
 }
-.subtitle{font-size:13px;margin-top:6px}
-.apps{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:24px 10px;
-  margin-top:45px;
+
+.open-button {
+  margin-top: 55px;
+  padding: 15px 22px;
+  border: 1px solid #ffffffbb;
+  border-radius: 25px;
+  background: #ffffffa8;
+  color: #6b514d;
+  font-size: 14px;
+  cursor: pointer;
 }
-.app{
-  text-align:center;
-  background:none;
-  color:white;
-  font-size:12px;
+
+#home {
+  display: none;
+  background: linear-gradient(160deg, #f8e8e1, #eed8d2, #f7eee9);
 }
-.icon{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:58px;
-  height:58px;
-  margin:0 auto 7px;
-  border-radius:16px;
-  background:#ffffffd9;
-  font-size:29px;
-  box-shadow:0 3px 9px #3333;
+
+.welcome {
+  margin: 12px 0 5px;
+  font-size: 25px;
+  font-weight: 600;
 }
-.dock{
-  position:absolute;
-  bottom:22px;
-  left:20px;
-  right:20px;
-  padding:14px;
-  border-radius:25px;
-  background:#ffffff55;
-  display:flex;
-  justify-content:space-around;
+
+.subtitle {
+  font-size: 12px;
+  margin-bottom: 26px;
+  color: #876f69;
 }
-#appview{
-  display:none;
-  position:absolute;
-  inset:0;
-  background:#fffafc;
-  color:#333;
-  padding:25px;
-  padding-top:55px;
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px 12px;
+  text-align: center;
 }
-.back{
-  background:#eee0eb;
-  color:#68475b;
-  padding:9px 15px;
-  border-radius:20px;
+
+.app {
+  border: none;
+  background: transparent;
+  color: #514542;
+  font-size: 11px;
+  cursor: pointer;
 }
-#apptitle{font-size:28px;margin-top:28px}
-#appcontent{white-space:pre-wrap;line-height:1.7}
-.note{
-  margin-top:20px;
-  width:100%;
-  min-height:180px;
-  padding:14px;
-  border:1px solid #ddd;
-  border-radius:12px;
-  font:16px inherit;
+
+.icon {
+  width: 57px;
+  height: 57px;
+  margin: 0 auto 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17px;
+  background: #ffffffbd;
+  font-size: 27px;
+  box-shadow: 0 3px 8px #a98b8220;
 }
-@media(min-height:750px){
- .phone{min-height:850px;height:100vh;max-height:950px;border-radius:35px}
+
+.dock {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 32px;
+  padding: 12px 5px;
+  border-radius: 23px;
+  background: #ffffff75;
+}
+
+.dock button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#app-view {
+  display: none;
+  background: #fbf5f1;
+}
+
+.back {
+  border: none;
+  background: #ffffffb8;
+  padding: 9px 14px;
+  border-radius: 15px;
+  color: #765c56;
+  cursor: pointer;
+}
+
+.app-title {
+  font-size: 27px;
+  margin-top: 25px;
+}
+
+.app-content {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+textarea {
+  width: 100%;
+  height: 280px;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #e8d4ce;
+  border-radius: 12px;
+  background: white;
+  font: inherit;
+  resize: none;
+  color: #514542;
+}
+
+.photo-box {
+  padding: 25px 10px;
+  text-align: center;
+  background: #f1ded8;
+  border-radius: 18px;
+  margin-top: 20px;
+}
+
+.home-button {
+  display: block;
+  margin: 24px auto 0;
+  border: none;
+  background: #ead2cc;
+  border-radius: 18px;
+  padding: 12px 18px;
+  color: #674d48;
+  cursor: pointer;
 }
 </style>
 </head>
+
 <body>
+
 <div class="phone">
   <div class="status">
-    <span id="statusTime">9:41</span>
-    <span>● Wi-Fi ▰</span>
+    <span>9:41</span>
+    <span>● ● ▰</span>
   </div>
-  <section id="lock">
-    <div class="date" id="date"></div>
+
+  <section id="lock" class="screen">
+    <div class="date" id="date">Friday, October 23</div>
     <div class="clock" id="clock">9:41</div>
-    <div class="message">
-      💌 <b>A little message</b><br>
-      someone made this little world just for you.
-    </div>
-    <button class="open" onclick="unlock()">♡ Open my iPhone</button>
+    <div class="greeting">a little world made just for you ♡</div>
+
+    <button class="open-button" onclick="unlock()">
+      ♡ Open my iPhone
+    </button>
   </section>
-  <section id="home">
-    <div class="greeting">Good day ♡</div>
-    <div class="subtitle">a little world made with love</div>
-    <div class="apps">
-      <button class="app" onclick="openApp('Photos')"><span class="icon">🌷</span>Photos</button>
-      <button class="app" onclick="openApp('Messages')"><span class="icon">💬</span>Messages</button>
-      <button class="app" onclick="openApp('Notes')"><span class="icon">📝</span>Notes</button>
-      <button class="app" onclick="openApp('Music')"><span class="icon">🎵</span>Music</button>
-      <button class="app" onclick="openApp('Calendar')"><span class="icon">📅</span>Calendar</button>
-      <button class="app" onclick="openApp('About')"><span class="icon">💗</span>About</button>
-      <button class="app" onclick="openApp('Camera')"><span class="icon">📷</span>Camera</button>
-      <button class="app" onclick="openApp('Settings')"><span class="icon">⚙️</span>Settings</button>
+
+  <section id="home" class="screen">
+    <div class="welcome">hello, darling ♡</div>
+    <div class="subtitle">a tiny place full of little things</div>
+
+    <div class="app-grid">
+      <button class="app" onclick="openApp('Photos')">
+        <div class="icon">🌷</div>Photos
+      </button>
+
+      <button class="app" onclick="openApp('Messages')">
+        <div class="icon">💌</div>Messages
+      </button>
+
+      <button class="app" onclick="openApp('Notes')">
+        <div class="icon">📝</div>Notes
+      </button>
+
+      <button class="app" onclick="openApp('Music')">
+        <div class="icon">🎧</div>Music
+      </button>
+
+      <button class="app" onclick="openApp('Calendar')">
+        <div class="icon">🗓️</div>Calendar
+      </button>
+
+      <button class="app" onclick="openApp('About')">
+        <div class="icon">🤍</div>About us
+      </button>
     </div>
+
     <div class="dock">
-      <button class="app" onclick="openApp('Phone')">📞</button>
-      <button class="app" onclick="openApp('Messages')">💬</button>
-      <button class="app" onclick="openApp('Music')">🎵</button>
-      <button class="app" onclick="openApp('Photos')">🌸</button>
+      <button onclick="openApp('Messages')" aria-label="Messages">💬</button>
+      <button onclick="openApp('Photos')" aria-label="Photos">🌸</button>
+      <button onclick="openApp('Music')" aria-label="Music">🎵</button>
     </div>
   </section>
-  <section id="appview">
-    <button class="back" onclick="closeApp()">‹ Home</button>
-    <div id="apptitle"></div>
-    <div id="appcontent"></div>
+
+  <section id="app-view" class="screen">
+    <button class="back" onclick="goHome()">‹ Home</button>
+    <h1 class="app-title" id="app-title">Hello ♡</h1>
+    <div class="app-content" id="app-content"></div>
+    <button class="home-button" onclick="goHome()">♡ Back to home</button>
   </section>
 </div>
-<script>
-const clock=document.getElementById('clock');
-const statusTime=document.getElementById('statusTime');
-function updateTime(){
-  const now=new Date();
-  const time=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:false});
-  clock.textContent=time;
-  statusTime.textContent=time;
-  document.getElementById('date').textContent=
-    now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-}
-updateTime();
-setInterval(updateTime,10000);
-function unlock(){
-  document.getElementById('lock').style.display='none';
-  document.getElementById('home').style.display='block';
-}
-function openApp(name){
-  document.getElementById('appview').style.display='block';
-  document.getElementById('apptitle').textContent=name;
-  const content=document.getElementById('appcontent');
-  const messages={
-    Photos:'Your favorite memories will live here. ♡',
-    Messages:'A little place for your sweetest conversations. 💌',
-    Notes:'Write something from your heart.',
-    Music:'Your favorite songs, all in one place. 🎵',
-    Calendar:'Important dates and little anniversaries. ♡',
-    About:'This little iPhone was made with love, just for you. 💗',
-    Camera:'A little camera for imaginary memories. 📷',
-    Settings:'Your little world, your own rules. ⚙️',
-    Phone:'A little phone inside your little phone. ♡'
-  };
-  if(name==='Notes'){
-    content.innerHTML='<textarea class="note" placeholder="write your little note here..."></textarea>';
 
-}else{
-content.textContent=messages[name]||‘Made with love. ♡’;
+<script>
+function unlock() {
+  document.getElementById("lock").style.display = "none";
+  document.getElementById("home").style.display = "block";
+  document.getElementById("app-view").style.display = "none";
 }
+
+function goHome() {
+  document.getElementById("lock").style.display = "none";
+  document.getElementById("home").style.display = "block";
+  document.getElementById("app-view").style.display = "none";
 }
-function closeApp(){
-document.getElementById(‘appview’).style.display=‘none’;
+
+function openApp(name) {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("lock").style.display = "none";
+  document.getElementById("app-view").style.display = "block";
+  document.getElementById("app-title").textContent = name;
+
+  const content = document.getElementById("app-content");
+
+  if (name === "Notes") {
+    content.innerHTML =
+      '<p>a little note for you ♡</p>' +
+      '<textarea id="note" placeholder="write something sweet here..."></textarea>';
+    const saved = localStorage.getItem("littleNote");
+    document.getElementById("note").value = saved || "";
+    document.getElementById("note").addEventListener("input", function() {
+      localStorage.setItem("littleNote", this.value);
+    });
+  } else if (name === "Photos") {
+    content.innerHTML =
+      '<div class="photo-box">🌷<p>our little memories</p>' +
+      '<p>we can put your favorite photos here later ♡</p></div>';
+  } else if (name === "Messages") {
+    content.innerHTML =
+      '<div class="photo-box">💌<p>hi, my favorite person.</p>' +
+      '<p>if i could give you one thing, it would be the ability to see yourself through my eyes. ♡</p></div>';
+  } else if (name === "Music") {
+    content.innerHTML =
+      '<div class="photo-box">🎧<p>our little soundtrack</p>' +
+      '<p>your favorite songs can live here ♡</p></div>';
+  } else if (name === "Calendar") {
+    content.innerHTML =
+      '<div class="photo-box">🗓️<p>little dates worth remembering</p>' +
+      '<p>our special days, anniversaries, and memories ♡</p></div>';
+  } else {
+    content.innerHTML =
+      '<div class="photo-box">🤍<p>made with love, just for you.</p>' +
+      '<p>a little corner of the internet that belongs to us ♡</p></div>';
+  }
 }
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById("clock").textContent =
+    now.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: false
+    });
+
+  document.getElementById("date").textContent =
+    now.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric"
+    });
+}
+
+updateClock();
+setInterval(updateClock, 30000);
+</script>
+
 </body>
 </html>
