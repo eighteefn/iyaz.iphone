@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Little iPhone</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+  background:#111;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+.phone{
+  width:100%;
+  max-width:390px;
+  min-height:100vh;
+  background:linear-gradient(145deg,#e9b5c9,#a9a4d5,#7895b7);
+  padding:22px;
+  position:relative;
+  overflow:hidden;
+}
+.status{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  font-weight:600;
+}
+#lock{
+  text-align:center;
+  padding-top:90px;
+}
+.date{font-size:17px}
+.clock{
+  font-size:76px;
+  font-weight:300;
+  letter-spacing:-4px;
+}
+.message{
+  margin-top:20px;
+  padding:14px;
+  border-radius:18px;
+  background:#ffffff55;
+  color:#222;
+  text-align:left;
+}
+button{
+  border:0;
+  cursor:pointer;
+  font:inherit;
+}
+.open{
+  margin-top:35px;
+  padding:13px 28px;
+  border-radius:25px;
+  background:#ffffffbb;
+  color:#222;
+}
+#home{display:none}
+.greeting{
+  margin-top:30px;
+  font-size:25px;
+  font-weight:650;
+}
+.subtitle{font-size:13px;margin-top:6px}
+.apps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px 10px;
+  margin-top:45px;
+}
+.app{
+  text-align:center;
+  background:none;
+  color:white;
+  font-size:12px;
+}
+.icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:58px;
+  height:58px;
+  margin:0 auto 7px;
+  border-radius:16px;
+  background:#ffffffd9;
+  font-size:29px;
+  box-shadow:0 3px 9px #3333;
+}
+.dock{
+  position:absolute;
+  bottom:22px;
+  left:20px;
+  right:20px;
+  padding:14px;
+  border-radius:25px;
+  background:#ffffff55;
+  display:flex;
+  justify-content:space-around;
+}
+#appview{
+  display:none;
+  position:absolute;
+  inset:0;
+  background:#fffafc;
+  color:#333;
+  padding:25px;
+  padding-top:55px;
+}
+.back{
+  background:#eee0eb;
+  color:#68475b;
+  padding:9px 15px;
+  border-radius:20px;
+}
+#apptitle{font-size:28px;margin-top:28px}
+#appcontent{white-space:pre-wrap;line-height:1.7}
+.note{
+  margin-top:20px;
+  width:100%;
+  min-height:180px;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font:16px inherit;
+}
+@media(min-height:750px){
+ .phone{min-height:850px;height:100vh;max-height:950px;border-radius:35px}
+}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="status">
+    <span id="statusTime">9:41</span>
+    <span>● Wi-Fi ▰</span>
+  </div>
+  <section id="lock">
+    <div class="date" id="date"></div>
+    <div class="clock" id="clock">9:41</div>
+    <div class="message">
+      💌 <b>A little message</b><br>
+      someone made this little world just for you.
+    </div>
+    <button class="open" onclick="unlock()">♡ Open my iPhone</button>
+  </section>
+  <section id="home">
+    <div class="greeting">Good day ♡</div>
+    <div class="subtitle">a little world made with love</div>
+    <div class="apps">
+      <button class="app" onclick="openApp('Photos')"><span class="icon">🌷</span>Photos</button>
+      <button class="app" onclick="openApp('Messages')"><span class="icon">💬</span>Messages</button>
+      <button class="app" onclick="openApp('Notes')"><span class="icon">📝</span>Notes</button>
+      <button class="app" onclick="openApp('Music')"><span class="icon">🎵</span>Music</button>
+      <button class="app" onclick="openApp('Calendar')"><span class="icon">📅</span>Calendar</button>
+      <button class="app" onclick="openApp('About')"><span class="icon">💗</span>About</button>
+      <button class="app" onclick="openApp('Camera')"><span class="icon">📷</span>Camera</button>
+      <button class="app" onclick="openApp('Settings')"><span class="icon">⚙️</span>Settings</button>
+    </div>
+    <div class="dock">
+      <button class="app" onclick="openApp('Phone')">📞</button>
+      <button class="app" onclick="openApp('Messages')">💬</button>
+      <button class="app" onclick="openApp('Music')">🎵</button>
+      <button class="app" onclick="openApp('Photos')">🌸</button>
+    </div>
+  </section>
+  <section id="appview">
+    <button class="back" onclick="closeApp()">‹ Home</button>
+    <div id="apptitle"></div>
+    <div id="appcontent"></div>
+  </section>
+</div>
+<script>
+const clock=document.getElementById('clock');
+const statusTime=document.getElementById('statusTime');
+function updateTime(){
+  const now=new Date();
+  const time=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:false});
+  clock.textContent=time;
+  statusTime.textContent=time;
+  document.getElementById('date').textContent=
+    now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+}
+updateTime();
+setInterval(updateTime,10000);
+function unlock(){
+  document.getElementById('lock').style.display='none';
+  document.getElementById('home').style.display='block';
+}
+function openApp(name){
+  document.getElementById('appview').style.display='block';
+  document.getElementById('apptitle').textContent=name;
+  const content=document.getElementById('appcontent');
+  const messages={
+    Photos:'Your favorite memories will live here. ♡',
+    Messages:'A little place for your sweetest conversations. 💌',
+    Notes:'Write something from your heart.',
+    Music:'Your favorite songs, all in one place. 🎵',
+    Calendar:'Important dates and little anniversaries. ♡',
+    About:'This little iPhone was made with love, just for you. 💗',
+    Camera:'A little camera for imaginary memories. 📷',
+    Settings:'Your little world, your own rules. ⚙️',
+    Phone:'A little phone inside your little phone. ♡'
+  };
+  if(name==='Notes'){
+    content.innerHTML='<textarea class="note" placeholder="write your little note here..."></textarea>';
+
+}else{
+content.textContent=messages[name]||‘Made with love. ♡’;
+}
+}
+function closeApp(){
+document.getElementById(‘appview’).style.display=‘none’;
+}
+</body>
+</html>
